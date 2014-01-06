@@ -1,3 +1,7 @@
+=== 0.1.0 2014-1-6
+
+* some fix by @geta6
+
 === 0.0.9 2014-1-6
 
 * performance improvement
