@@ -5,9 +5,9 @@ fs = require 'fs'
 events = require 'eventemitter2'
 socketio = require 'socket.io'
 
-TupleSpace = require __dirname+'/tuplespace'
-Tuple = require __dirname+'/tuple'
-Client = require __dirname+'/linda-socketio-client'
+TupleSpace = require path.join(__dirname, 'tuplespace')
+Tuple = require path.join(__dirname, 'tuple')
+Client = require path.join(__dirname, 'linda-socketio-client')
 
 module.exports.TupleSpace = TupleSpace
 module.exports.Tuple = Tuple
@@ -17,7 +17,8 @@ class Linda extends events.EventEmitter2
   constructor: ->
     @spaces = {}
 
-    fs.readFile __dirname+'/linda-socketio-client.js', (err, data) =>
+    fs.readFile path.join(__dirname, 'linda-socketio-client.js'),
+    (err, data) =>
       throw new Error "client js load error" if err
       @client_js_code = data
 

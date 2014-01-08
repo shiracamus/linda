@@ -1,5 +1,5 @@
 path = require 'path'
-Tuple = require __dirname+'/tuple'
+Tuple = require path.join(__dirname, 'tuple')
 
 module.exports = class TupleSpace
   constructor: (@name='noname') ->
