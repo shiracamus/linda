@@ -105,7 +105,7 @@ Client Side (web browser)
 ```
 
 ```javascript
-var socket = io.connect("http://localhost:3000");
+var socket = io.connect(location.protocol+"//"+location.host);
 var linda = new Linda().connect(socket);
 ```
 
