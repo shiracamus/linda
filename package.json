@@ -29,5 +29,16 @@
     "socket.io": "*",
     "socket.io-client": "*",
     "eventemitter2": "~0.4.13"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/node-linda/linda-socket.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/node-linda/linda-socket.io/issues"
+  },
+  "homepage": "https://github.com/node-linda/linda-socket.io"
 }
