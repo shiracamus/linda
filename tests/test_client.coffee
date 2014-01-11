@@ -12,7 +12,7 @@ port = process.env.PORT-0 || 13000
 server = new TestServer().listen(port)
 setTimeout ->
   server.close()
-, 3000
+, 10000
 
 ## client
 create_client = ->
@@ -28,7 +28,7 @@ describe 'instance of LindaClient', ->
   it 'should have property "io"', ->
     assert.ok create_client().hasOwnProperty('io')
 
-  it 'should have connecttion', (done) ->
+  it 'should have socket.io connection', (done) ->
     linda = create_client()
     ts = linda.tuplespace('chat')
 
