@@ -12,6 +12,7 @@ Install
 -------
 
     % npm install linda-socket.io
+    % npm install socket.io socket.io-client
 
 
 Requirements
