@@ -1,3 +1,7 @@
+=== 0.1.5 2014-1-12
+
+* set mime-type of client js lib  #7
+
 === 0.1.4 2014-1-12
 
 * remove all read/take/watch callbacks when socket.io disconnect  #8
