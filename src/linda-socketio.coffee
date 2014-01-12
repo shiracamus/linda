@@ -45,6 +45,7 @@ class Linda extends events.EventEmitter2
     @server.on 'request', (req, res) =>  ## intercept requests
       _url = url.parse(decodeURI(req.url), true)
       if _url.pathname == "/linda/linda-socket.io.js"
+        res.setHeader 'Content-Type', 'application/javascript'
         res.writeHead 200
         res.end @client_js_code
         return
