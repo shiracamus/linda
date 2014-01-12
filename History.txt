@@ -1,3 +1,8 @@
+=== 0.1.4 2014-1-12
+
+* remove all read/take/watch callbacks when socket.io disconnect  #8
+* remove socket.io listener when TupleSpace#cancel() called  #8
+
 === 0.1.3 2014-1-12
 
 * repository move => https://github.com/node-linda/linda-socket.io
