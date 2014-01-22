@@ -24,9 +24,11 @@ class Linda extends events.EventEmitter2
       @client_js_code = data
 
     setInterval =>
+      debug "TupleSpace\tcheck expire"
       for name, space of @spaces
         if space?
           space.check_expire()
+      debug "TupleSpace\tcheck expire done"
     , 60*3*1000 # 3min
 
   tuplespace: (name) ->
@@ -46,6 +48,7 @@ class Linda extends events.EventEmitter2
     @server.on 'request', (req, res) =>  ## intercept requests
       _url = url.parse(decodeURI(req.url), true)
       if _url.pathname == "/linda/linda-socket.io.js"
+        debug "GET\t#{_url.pathname}"
         res.setHeader 'Content-Type', 'application/javascript'
         res.writeHead 200
         res.end @client_js_code
@@ -58,7 +61,7 @@ class Linda extends events.EventEmitter2
 
       socket.on '__linda_write', (data) =>
         @tuplespace(data.tuplespace).write data.tuple, data.options
-        debug "write #{JSON.stringify data}"
+        debug "write\t#{JSON.stringify data}"
         @.emit 'write', data
 
       socket.on '__linda_take', (data) =>
@@ -66,7 +69,7 @@ class Linda extends events.EventEmitter2
           cid = null
           socket.emit "__linda_take_#{data.id}", err, tuple
         cids[data.id] = cid
-        debug "take #{JSON.stringify data}"
+        debug "take\t#{JSON.stringify data}"
         @.emit 'take', data
         socket.once 'disconnect', =>
           @tuplespace(data.tuplespace).cancel cid if cid
@@ -76,14 +79,14 @@ class Linda extends events.EventEmitter2
           cid = null
           socket.emit "__linda_read_#{data.id}", err, tuple
         cids[data.id] = cid
-        debug "read #{JSON.stringify data}"
+        debug "read\t#{JSON.stringify data}"
         @.emit 'read', data
         socket.once 'disconnect', =>
           @tuplespace(data.tuplespace).cancel cid if cid
 
       watch_cids = {}
       socket.on '__linda_watch', (data) =>
-        debug "watch #{JSON.stringify data}"
+        debug "watch\t#{JSON.stringify data}"
         @emit 'watch', data
         return if watch_cids[data.id]  # not watch if already watching
         watch_cids[data.id] = true
@@ -94,7 +97,7 @@ class Linda extends events.EventEmitter2
           @tuplespace(data.tuplespace).cancel cid if cid
 
       socket.on '__linda_cancel', (data) =>
-        debug "cancel #{JSON.stringify data}"
+        debug "cancel\t#{JSON.stringify data}"
         @emit 'cancel', data
         @tuplespace(data.tuplespace).cancel cids[data.id]
         watch_cids[data.id] = false
