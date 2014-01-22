@@ -58,19 +58,24 @@ class Linda extends events.EventEmitter2
 
     @io.sockets.on 'connection', (socket) =>
       cids = {}
+      info = {
+        from: (socket.handshake.headers['x-forwarded-for'] ||
+           socket.handshake.address.address)
+      }
 
       socket.on '__linda_write', (data) =>
+        data.options?.from = info.from
         @tuplespace(data.tuplespace).write data.tuple, data.options
-        debug "write\t#{JSON.stringify data}"
-        @.emit 'write', data
+        debug "write\t#{JSON.stringify data} from #{info.from}"
+        @emit 'write', data
 
       socket.on '__linda_take', (data) =>
         cid = @tuplespace(data.tuplespace).take data.tuple, (err, tuple) ->
           cid = null
           socket.emit "__linda_take_#{data.id}", err, tuple
         cids[data.id] = cid
-        debug "take\t#{JSON.stringify data}"
-        @.emit 'take', data
+        debug "take\t#{JSON.stringify data} from #{info.from}"
+        @emit 'take', data
         socket.once 'disconnect', =>
           @tuplespace(data.tuplespace).cancel cid if cid
 
@@ -79,14 +84,14 @@ class Linda extends events.EventEmitter2
           cid = null
           socket.emit "__linda_read_#{data.id}", err, tuple
         cids[data.id] = cid
-        debug "read\t#{JSON.stringify data}"
-        @.emit 'read', data
+        debug "read\t#{JSON.stringify data} from #{info.from}"
+        @emit 'read', data
         socket.once 'disconnect', =>
           @tuplespace(data.tuplespace).cancel cid if cid
 
       watch_cids = {}
       socket.on '__linda_watch', (data) =>
-        debug "watch\t#{JSON.stringify data}"
+        debug "watch\t#{JSON.stringify data} from #{info.from}"
         @emit 'watch', data
         return if watch_cids[data.id]  # not watch if already watching
         watch_cids[data.id] = true
@@ -97,7 +102,7 @@ class Linda extends events.EventEmitter2
           @tuplespace(data.tuplespace).cancel cid if cid
 
       socket.on '__linda_cancel', (data) =>
-        debug "cancel\t#{JSON.stringify data}"
+        debug "cancel\t#{JSON.stringify data} from #{info.from}"
         @emit 'cancel', data
         @tuplespace(data.tuplespace).cancel cids[data.id]
         watch_cids[data.id] = false

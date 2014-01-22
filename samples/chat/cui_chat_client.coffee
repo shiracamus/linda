@@ -9,7 +9,7 @@ socket.on 'connect', ->
   console.log 'connect!!!'
 
   ts.watch {type: "chat"}, (err, tuple) ->
-    console.log "> #{tuple.data.message}"
+    console.log "> #{tuple.data.message} (from:#{tuple.from})"
 
 process.stdin.setEncoding 'utf8'
 process.stdin.on 'data', (data) ->

@@ -16,6 +16,7 @@ module.exports = class TupleSpace
         options.expire
       else
         Tuple.DEFAULT.expire
+    tuple.from = options.from
     called = []
     taked = false
     for i in [0...@callbacks.length]

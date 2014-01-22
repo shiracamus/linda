@@ -22,7 +22,7 @@
     }, function(err, tuple) {
       var result;
       result = eval(tuple.data.query);
-      print("" + tuple.data.query + " = " + result);
+      print("" + tuple.data.query + " = " + result + " (from:" + tuple.from + ")");
       ts.write({
         type: 'result',
         result: result

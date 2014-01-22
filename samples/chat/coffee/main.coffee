@@ -10,7 +10,7 @@ socket.on 'connect', ->
   print "connect!!!"
 
   ts.watch {type: "chat"}, (err, tuple) ->
-    print "> #{tuple.data.message}"
+    print "> #{tuple.data.message} (from:#{tuple.from})"
 
 jQuery ->
   $('#btn_send').click (e) ->

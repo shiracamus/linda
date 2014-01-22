@@ -16,7 +16,7 @@
     return ts.watch({
       type: "chat"
     }, function(err, tuple) {
-      return print("> " + tuple.data.message);
+      return print("> " + tuple.data.message + " (from:" + tuple.from + ")");
     });
   });
 

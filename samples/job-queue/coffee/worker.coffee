@@ -12,6 +12,6 @@ socket.on 'connect', ->
 work = ->
   ts.take {type: 'request'}, (err, tuple) ->
     result = eval tuple.data.query
-    print "#{tuple.data.query} = #{result}"
+    print "#{tuple.data.query} = #{result} (from:#{tuple.from})"
     ts.write {type: 'result', result: result}
     work()
