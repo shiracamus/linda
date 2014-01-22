@@ -36,43 +36,35 @@ module.exports = class TupleSpace
     return Date.now() - Math.random()
 
   read: (tuple, callback) ->
-    callback = null unless typeof callback == 'function'
+    return unless typeof callback == 'function'
     if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
-      if callback
-        setImmediate -> callback('argument_error')
+      setImmediate -> callback('argument_error')
       return null
     tuple = new Tuple(tuple) unless tuple instanceof Tuple
     for i in [@size-1..0]
       t = @tuples[i]
       if tuple.match t
-        if callback
-          setImmediate -> callback(null, t)
-        return t
-    if callback
-      id = @create_callback_id()
-      @callbacks.push {type: 'read', callback: callback, tuple: tuple, id: id}
-      return id
-    return
+        setImmediate -> callback(null, t)
+        return
+    id = @create_callback_id()
+    @callbacks.push {type: 'read', callback: callback, tuple: tuple, id: id}
+    return id
 
   take: (tuple, callback) ->
-    callback = null unless typeof callback == 'function'
+    return unless typeof callback == 'function'
     if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
-      if callback
-        setImmediate -> callback('argument_error')
+      setImmediate -> callback('argument_error')
       return null
     tuple = new Tuple(tuple) unless tuple instanceof Tuple
     for i in [@size-1..0]
       t = @tuples[i]
       if tuple.match t
-        if callback
-          setImmediate -> callback(null, t)
+        setImmediate -> callback(null, t)
         @tuples.splice i, 1
-        return t
-    if callback
-      id = @create_callback_id()
-      @callbacks.push {type: 'take', callback: callback, tuple: tuple, id: id}
-      return id
-    return
+        return
+    id = @create_callback_id()
+    @callbacks.push {type: 'take', callback: callback, tuple: tuple, id: id}
+    return id
 
   watch: (tuple, callback) ->
     return unless typeof callback == 'function'

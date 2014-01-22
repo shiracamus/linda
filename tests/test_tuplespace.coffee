@@ -61,58 +61,8 @@ describe 'instance of "TupleSpace"', ->
   it 'should have method "read"', ->
     assert.equal typeof new TupleSpace()['read'], 'function'
 
-  describe 'method "read"', ->
-    ts = new TupleSpace("foo")
-    ts.write {a:1, b:2, c:3}
-    ts.write {a:1, b:2, d:88}
-    ts.write {a:1, b:2, c:45}
-
-    it 'should return matched Tuple', ->
-      assert.deepEqual ts.read(a:1, b:2).data, {a:1, b:2, c:45}
-      assert.deepEqual ts.read(a:1, b:2, c:3).data, {a:1, b:2, c:3}
-      assert.deepEqual ts.read(new Tuple(d:88)).data, {a:1, b:2, d:88}
-      assert.deepEqual ts.read({}).data, {a:1, b:2, c:45}
-
-    it 'should return null if not matched', ->
-      assert.equal ts.read({foo: 'bar'}), null
-
-    it 'should return null if not valid Tuple', ->
-      assert.equal ts.read("bar"), null
-      assert.equal ts.read([1,2,3]), null
-      assert.equal ts.read(null), null
-
-    it 'should not delete matched Tuple', ->
-      assert.equal ts.size, 3
-      assert.notEqual ts.read({}), null
-      assert.equal ts.size, 3
-
-
   it 'should have method "take"', ->
     assert.equal typeof new TupleSpace()['take'], 'function'
-
-  describe 'method "take"', ->
-    ts = new TupleSpace
-    ts.write {a:1, b:2, c:3}
-    ts.write {a:1, b:2, d:88}
-    ts.write {a:1, b:2, c:45}
-
-    it 'should return null if not valid Tuple', ->
-      assert.equal ts.take("bar"), null
-      assert.equal ts.take([1,2,3]), null
-      assert.equal ts.take(null), null
-
-    it 'should return null if not matched', ->
-      assert.equal ts.take({foo: 'bar'}), null
-
-    it 'should return matched Tuple and delete', ->
-      assert.deepEqual ts.take({a:1, b:2, c:3}).data, {a:1, b:2, c:3}
-      assert.equal ts.size, 2
-      assert.equal ts.take({a:1, b:2, c:3}), null
-      assert.deepEqual ts.take(new Tuple({d:88})).data, {a:1, b:2, d:88}
-      assert.equal ts.size, 1
-      assert.deepEqual ts.take({}).data, {a:1, b:2, c:45}
-      assert.equal ts.size, 0
-      assert.equal ts.take({}), null
 
   describe 'method "read" with callback', ->
 
@@ -295,16 +245,27 @@ describe 'instance of "TupleSpace"', ->
       ts.write {foo: "bar"}
 
       assert.equal ts.size, 4
-      assert.deepEqual ts.read({a:1, b:2, c:3}).data, {a:1, b:2, c:3}
 
-      setTimeout ->
-        ts.check_expire()
-        assert.equal ts.size, 3
-        assert.deepEqual ts.read({a:1, b:2}).data, {a:1, b:2}
-        setTimeout ->
-          ts.check_expire()
-          assert.equal ts.size, 1
-          assert.deepEqual ts.read({}).data, {foo: "bar"}
-          done()
-        , 2000
-      , 2000
+      async.parallel [
+        (async_done) ->
+          ts.read {a:1, b:2, c:3}, (err, tuple) ->
+            assert.deepEqual tuple.data, {a:1, b:2, c:3}
+            async_done(null, tuple)
+        (async_done) ->
+          setTimeout ->
+            ts.check_expire()
+            assert.equal ts.size, 3
+            ts.read {a:1, b:2}, (err, tuple) ->
+              assert.deepEqual tuple.data, {a:1, b:2}
+              async_done(null, tuple)
+          , 2000
+        (async_done) ->
+          setTimeout ->
+            ts.check_expire()
+            assert.equal ts.size, 1
+            ts.read {}, (err, tuple) ->
+              assert.deepEqual tuple.data, {foo: "bar"}
+              async_done(null, tuple)
+          , 4000
+      ], (err, results) ->
+        done()
