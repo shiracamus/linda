@@ -1,3 +1,9 @@
+=== 0.1.6 2014-1-22
+
+* use "debug" npm
+  * print tuple read/write/take/watch/cancel log  #6
+  * print static contents (client-js lib) access log  #5
+
 === 0.1.5 2014-1-12
 
 * set mime-type of client js lib  #7
