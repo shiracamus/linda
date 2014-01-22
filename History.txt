@@ -1,3 +1,7 @@
+=== 0.2.0 2014-1-23
+
+* deprecate synchronous TupleSpace#read/take  #4
+
 === 0.1.7 2014-1-22
 
 * put remote-address into tuple.from #9
