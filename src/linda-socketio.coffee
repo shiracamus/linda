@@ -4,6 +4,7 @@ url  = require 'url'
 fs = require 'fs'
 events = require 'eventemitter2'
 socketio = require 'socket.io'
+debug = require('debug')('linda-socket.io')
 
 TupleSpace = require path.join(__dirname, 'tuplespace')
 Tuple = require path.join(__dirname, 'tuple')
@@ -57,6 +58,7 @@ class Linda extends events.EventEmitter2
 
       socket.on '__linda_write', (data) =>
         @tuplespace(data.tuplespace).write data.tuple, data.options
+        debug "write #{JSON.stringify data}"
         @.emit 'write', data
 
       socket.on '__linda_take', (data) =>
@@ -64,6 +66,7 @@ class Linda extends events.EventEmitter2
           cid = null
           socket.emit "__linda_take_#{data.id}", err, tuple
         cids[data.id] = cid
+        debug "take #{JSON.stringify data}"
         @.emit 'take', data
         socket.once 'disconnect', =>
           @tuplespace(data.tuplespace).cancel cid if cid
@@ -73,22 +76,26 @@ class Linda extends events.EventEmitter2
           cid = null
           socket.emit "__linda_read_#{data.id}", err, tuple
         cids[data.id] = cid
+        debug "read #{JSON.stringify data}"
         @.emit 'read', data
         socket.once 'disconnect', =>
           @tuplespace(data.tuplespace).cancel cid if cid
 
       watch_cids = {}
       socket.on '__linda_watch', (data) =>
+        debug "watch #{JSON.stringify data}"
+        @emit 'watch', data
         return if watch_cids[data.id]  # not watch if already watching
         watch_cids[data.id] = true
         cid = @tuplespace(data.tuplespace).watch data.tuple, (err, tuple) ->
           socket.emit "__linda_watch_#{data.id}", err, tuple
         cids[data.id] = cid
-        @emit 'watch', data
         socket.once 'disconnect', =>
           @tuplespace(data.tuplespace).cancel cid if cid
 
       socket.on '__linda_cancel', (data) =>
+        debug "cancel #{JSON.stringify data}"
+        @emit 'cancel', data
         @tuplespace(data.tuplespace).cancel cids[data.id]
         watch_cids[data.id] = false
 
