@@ -28,7 +28,8 @@
   "dependencies": {
     "socket.io": "*",
     "socket.io-client": "*",
-    "eventemitter2": "~0.4.13"
+    "eventemitter2": "~0.4.13",
+    "debug": "~0.7.4"
   },
   "directories": {
     "test": "tests"
