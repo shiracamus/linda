@@ -73,6 +73,11 @@ Samples
 => http://localhost:3000
 
 
+### print Tuple read/write/take/watch/cancel logs
+
+    % DEBUG=linda* coffee samples/chat/server.coffee 3000
+    % DEBUG=linda* coffee samples/job-queue/server.coffee 3000
+
 Usage
 -----
 
