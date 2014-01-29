@@ -5,7 +5,7 @@ Linda Socket.IO
 - https://github.com/node-linda/linda-socket.io
 - https://npmjs.org/package/linda-socket.io
 
-[![Travis CI Status Badge](https://travis-ci.org/node-linda/linda-socket.io.png)](https://travis-ci.org/node-linda/linda-socket.io)
+[![Travis CI Status Badge](https://travis-ci.org/node-linda/linda-socket.io.png?branch=master)](https://travis-ci.org/node-linda/linda-socket.io)
 
 
 Install
