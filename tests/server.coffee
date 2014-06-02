@@ -14,7 +14,7 @@ module.exports = class TestServer
     @io = require('socket.io').listen(@app)
     @io.set 'log level', 2
 
-    @linda = require('../').Linda.listen(io: @io, server: @app)
+    @linda = require('../').Server.listen(io: @io, server: @app)
 
   listen: (@port) ->
     @app.listen(@port)

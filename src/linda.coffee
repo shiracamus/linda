@@ -110,4 +110,4 @@ class Linda extends events.EventEmitter2
     return @
 
 
-module.exports.Linda = new Linda
+module.exports.Server = new Linda

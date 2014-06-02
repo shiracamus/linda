@@ -96,7 +96,7 @@ var app = http.createServer(app_handler);
 
 var io = require('socket.io').listen(app);
 
-var linda = require('linda').Linda.listen({io: io, server: app});
+var linda = require('linda').Server.listen({io: io, server: app});
 
 app.listen(3000);
 console.log("server start - http://localhost:3000");

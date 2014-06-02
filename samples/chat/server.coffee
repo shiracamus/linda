@@ -19,8 +19,8 @@ io.configure 'development', ->
   io.set 'log level', 2
 
 
-## linda = require('linda').Linda.listen(io: io, server: app)
-linda = require('../../').Linda.listen(io: io, server: app)
+## linda = require('linda').Server.listen(io: io, server: app)
+linda = require('../../').Server.listen(io: io, server: app)
 
 port = process.argv[2]-0 || 3000
 app.listen port
