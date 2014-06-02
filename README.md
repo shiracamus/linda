@@ -18,7 +18,7 @@ Install
 Requirements
 ------------
 - Node.js
-- [Socket.IO](http://socket.io/)
+- [Socket.IO](http://socket.io/) v1.0.x
 
 
 Linda
