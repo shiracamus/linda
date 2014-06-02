@@ -20,7 +20,7 @@ class TupleSpace
 
   create_watch_callback_id: (tuple) ->
     key = JSON.stringify tuple
-    return @watch_callback_ids[key] ||
+    return @watch_callback_ids[key] or
       @watch_callback_ids[key] = @create_callback_id()
 
   remove_io_callbacks: ->
@@ -66,7 +66,7 @@ class TupleSpace
     return id
 
   cancel: (id) ->
-    if @linda.io.socket.connected
+    if @linda.io.connected
       @linda.io.emit '__linda_cancel', {tuplespace: @name, id: id}
     setTimeout =>
       for i in [(@io_callbacks.length-1)..0]

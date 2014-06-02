@@ -15,14 +15,11 @@ app_handler = (req, res) ->
 
 app = http.createServer(app_handler)
 io = require('socket.io').listen(app)
-io.configure 'development', ->
-  io.set 'log level', 2
-
 
 ## linda = require('linda').Server.listen(io: io, server: app)
 linda = require('../../').Server.listen(io: io, server: app)
 
-port = process.argv[2]-0 || 3000
+port = process.argv[2]-0 or 3000
 app.listen port
 console.log "server start - port:#{port}"
 

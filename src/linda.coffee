@@ -32,7 +32,7 @@ class Linda extends events.EventEmitter2
     , 60*3*1000 # 3min
 
   tuplespace: (name) ->
-    return @spaces[name] ||
+    return @spaces[name] or
            @spaces[name] = new TupleSpace(name)
 
   listen: (opts = {io: null, server: null}) ->
@@ -59,8 +59,8 @@ class Linda extends events.EventEmitter2
     @io.sockets.on 'connection', (socket) =>
       cids = {}
       info = {
-        from: (socket.handshake.headers['x-forwarded-for'] ||
-           socket.handshake.address.address)
+        from: (socket.handshake.headers['x-forwarded-for'] or
+               socket.handshake.address?.address)
       }
 
       socket.on '__linda_write', (data) =>

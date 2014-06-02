@@ -26,8 +26,8 @@
     "async": "*"
   },
   "dependencies": {
-    "socket.io": "*",
-    "socket.io-client": "*",
+    "socket.io": "~> 1.0",
+    "socket.io-client": "~> 1.0",
     "eventemitter2": "~0.4.13",
     "debug": "~0.7.4"
   },
