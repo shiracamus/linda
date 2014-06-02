@@ -1,9 +1,9 @@
 {
-  "name": "linda-socket.io",
+  "name": "linda",
   "version": "0.2.0",
   "private": false,
   "description": "Linda implementation on Socket.IO",
-  "main": "lib/linda-socketio.js",
+  "main": "lib/linda.js",
   "scripts": {
     "test": "grunt test"
   },
@@ -36,10 +36,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/node-linda/linda-socket.io.git"
+    "url": "git://github.com/node-linda/linda.git"
   },
   "bugs": {
-    "url": "https://github.com/node-linda/linda-socket.io/issues"
+    "url": "https://github.com/node-linda/linda/issues"
   },
-  "homepage": "https://github.com/node-linda/linda-socket.io"
+  "homepage": "https://github.com/node-linda/linda"
 }

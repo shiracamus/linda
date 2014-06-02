@@ -4,11 +4,11 @@ url  = require 'url'
 fs = require 'fs'
 events = require 'eventemitter2'
 socketio = require 'socket.io'
-debug = require('debug')('linda-socket.io')
+debug = require('debug')('linda')
 
 TupleSpace = require path.join(__dirname, 'tuplespace')
 Tuple = require path.join(__dirname, 'tuple')
-Client = require path.join(__dirname, 'linda-socketio-client')
+Client = require path.join(__dirname, 'linda-client')
 
 module.exports.TupleSpace = TupleSpace
 module.exports.Tuple = Tuple
@@ -18,7 +18,7 @@ class Linda extends events.EventEmitter2
   constructor: ->
     @spaces = {}
 
-    fs.readFile path.join(__dirname, 'linda-socketio-client.js'),
+    fs.readFile path.join(__dirname, 'linda-client.js'),
     (err, data) =>
       throw new Error "client js load error" if err
       @client_js_code = data
@@ -47,7 +47,7 @@ class Linda extends events.EventEmitter2
     @server.removeAllListeners 'request'
     @server.on 'request', (req, res) =>  ## intercept requests
       _url = url.parse(decodeURI(req.url), true)
-      if _url.pathname == "/linda/linda-socket.io.js"
+      if _url.pathname == "/linda/linda.js"
         debug "GET\t#{_url.pathname}"
         res.setHeader 'Content-Type', 'application/javascript'
         res.writeHead 200

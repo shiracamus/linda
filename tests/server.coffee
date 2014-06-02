@@ -9,7 +9,7 @@ module.exports = class TestServer
       _url = url.parse(decodeURI(req.url), true)
       if _url.pathname == '/'
         res.writeHead 200
-        res.end 'linda-socket.io test server'
+        res.end 'linda test server'
 
     @io = require('socket.io').listen(@app)
     @io.set 'log level', 2

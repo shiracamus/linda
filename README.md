@@ -1,17 +1,17 @@
-Linda Socket.IO
-===============
+Linda
+=====
 <a href="http://en.wikipedia.org/wiki/Linda_(coordination_language)">Coordinatioin Launguage "Linda"</a> implementation for Node.js and Socket.IO
 
-- https://github.com/node-linda/linda-socket.io
-- https://npmjs.org/package/linda-socket.io
+- https://github.com/node-linda/linda
+- https://npmjs.org/package/linda
 
-[![Travis CI Status Badge](https://travis-ci.org/node-linda/linda-socket.io.png?branch=master)](https://travis-ci.org/node-linda/linda-socket.io)
+[![Travis CI Status Badge](https://travis-ci.org/node-linda/linda.png?branch=master)](https://travis-ci.org/node-linda/linda)
 
 
 Install
 -------
 
-    % npm install linda-socket.io
+    % npm install linda
     % npm install socket.io socket.io-client
 
 
@@ -48,13 +48,13 @@ Shared memory on Node.js server.
 Samples
 -------
 
-- https://github.com/node-linda/linda-socket.io/tree/master/samples
-- https://github.com/node-linda/linda-job-queue-sample
+- https://github.com/node-linda/linda/ree/master/samples
+- https://github.com/node-linda/job-queue-sample
 
 ## Install Dependencies
 
-    % git clone https://github.com/node-linda/linda-socket.io.git
-    % cd linda-socket.io
+    % git clone https://github.com/node-linda/linda.git
+    % cd linda
     % npm install
     % npm install -g grunt-cli coffee-script
 
@@ -96,7 +96,7 @@ var app = http.createServer(app_handler);
 
 var io = require('socket.io').listen(app);
 
-var linda = require('linda-socket.io').Linda.listen({io: io, server: app});
+var linda = require('linda').Linda.listen({io: io, server: app});
 
 app.listen(3000);
 console.log("server start - http://localhost:3000");
@@ -107,7 +107,7 @@ Client Side (web browser)
 
 ```html
 <script src="/socket.io/socket.io.js"></script>
-<script src="/linda/linda-socket.io.js"></script>
+<script src="/linda/linda.js"></script>
 ```
 
 ```javascript
@@ -118,7 +118,7 @@ var linda = new Linda().connect(socket);
 Client Side (node.js)
 
 ```javascript
-var LindaClient = require('linda-socket.io').Client;
+var LindaClient = require('linda').Client;
 var socket = require('socket.io-client').connect('http://localhost:3000');
 var linda = new LindaClient().connect(socket);
 ```
@@ -170,7 +170,7 @@ socket.on('connect', function(){ // Socket.IO's "connect" event
 });
 ```
 
-see more [samples](https://github.com/node-linda/linda-socket.io/tree/master/samples)
+see more [samples](https://github.com/node-linda/linda/tree/master/samples)
 
 
 Test
