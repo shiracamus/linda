@@ -1,3 +1,7 @@
+=== 1.0.0 2014-6-3
+
+* update for socket.io v1.0.2  #13
+
 === 0.3.0 2014-6-2
 
 * rename endpoint  require("linda").Linda -> require("linda").Server
