@@ -1,18 +1,20 @@
 http = require 'http'
 url  = require 'url'
 http = require 'http'
+events = require 'eventemitter2'
 
-module.exports = class TestServer
+module.exports = class TestServer extends events.EventEmitter2
 
   constructor: ->
-    @app = http.createServer (req, res) ->
+    @app = http.createServer (req, res) =>
       _url = url.parse(decodeURI(req.url), true)
       if _url.pathname == '/'
         res.writeHead 200
         res.end 'linda test server'
 
+      @emit 'request', req
+
     @io = require('socket.io').listen(@app)
-    @io.set 'log level', 2
 
     @linda = require('../').Server.listen(io: @io, server: @app)
 

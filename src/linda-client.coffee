@@ -7,6 +7,9 @@ class LindaClient
   tuplespace: (name) ->
     return new TupleSpace @, name
 
+  requestKeepalive: (url) ->
+    @tuplespace('__linda').write {type: 'keepalive', to: url}
+
 class TupleSpace
 
   constructor: (@linda, @name) ->

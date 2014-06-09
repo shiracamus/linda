@@ -1,8 +1,9 @@
-http = require 'http'
-path = require 'path'
-url  = require 'url'
-fs = require 'fs'
-events = require 'eventemitter2'
+http    = require 'http'
+path    = require 'path'
+url     = require 'url'
+fs      = require 'fs'
+request = require 'request'
+events  = require 'eventemitter2'
 socketio = require 'socket.io'
 debug = require('debug')('linda')
 
@@ -30,6 +31,12 @@ class Linda extends events.EventEmitter2
           space.check_expire()
       debug "TupleSpace\tcheck expire done"
     , 60*3*1000 # 3min
+
+    @tuplespace('__linda').watch {type: 'keepalive'}, (err, tuple) ->
+      if err or !tuple.data.to?
+        return
+      if /^https?:\/\/.+/.test tuple.data.to
+        request "#{tuple.data.to}?keepalive=#{Date.now()}"
 
   tuplespace: (name) ->
     return @spaces[name] or

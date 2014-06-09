@@ -33,8 +33,11 @@ describe 'instance of LindaClient', ->
     ts = linda.tuplespace('chat')
 
     linda.io.on 'connect', ->
-      assert.ok
+      assert.ok true
       done()
+
+  it 'should have method "requestKeepalive"', ->
+    assert.equal typeof new LindaClient()['requestKeepalive'], 'function'
 
   it 'should have method "tuplespace"', ->
     assert.equal typeof new LindaClient()['tuplespace'], 'function'
@@ -209,7 +212,7 @@ describe 'instance of LindaClient', ->
               assert.ok false
               async_done()
             setTimeout ->
-              assert.ok
+              assert.ok true
               async_done()
             , 500
         ], (err, results) ->
@@ -275,7 +278,7 @@ describe 'instance of LindaClient', ->
               assert.ok false
               async_done()
             setTimeout ->
-              assert.ok
+              assert.ok true
               async_done()
             , 500
         ], (err, results) ->
@@ -341,3 +344,12 @@ describe 'instance of LindaClient', ->
 #
 #      ts.write {a:1, b:2}
 #
+  describe 'method "requestKeepalive"', ->
+
+    it 'should receive keepalive HTTP-Request', (done) ->
+
+      server.once 'request', (req)->
+        assert.ok /keepalive/.test req.url
+        done()
+
+      create_client().requestKeepalive("http://localhost:#{port}")
