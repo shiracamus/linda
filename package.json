@@ -7,6 +7,9 @@
   "scripts": {
     "test": "grunt test"
   },
+  "bin": {
+    "linda-server": "./bin/linda-server.coffee"
+  },
   "keywords": [
     "linda",
     "socket.io"
@@ -29,6 +32,10 @@
     "debug": "*",
     "eventemitter2": "*",
     "request": "*",
+    "optparse": "*",
+    "body-parser": "^1.6.5",
+    "express": "^4.8.5",
+    "jade": "^1.5.0",
     "socket.io": "~> 1.0",
     "socket.io-client": "~> 1.0"
   },
