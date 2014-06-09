@@ -1,0 +1,15 @@
+#!/usr/bin/env coffee
+
+http = require 'http'
+url = require 'url'
+
+app = http.createServer (req, res) ->
+  res.writeHead 200
+  res.end "linda"
+  
+io = require('socket.io').listen app
+
+linda = require('../').Server.listen(io: io, server: app)
+
+app.listen 3000
+console.log "server start - http://localhost:3000"
