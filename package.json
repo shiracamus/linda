@@ -1,6 +1,6 @@
 {
   "name": "linda",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Linda implementation on Socket.IO",
   "main": "lib/linda.js",
@@ -26,9 +26,9 @@
     "async": "*"
   },
   "dependencies": {
-    "debug": "~0.7.4",
-    "eventemitter2": "~0.4.13",
-    "request": "^2.36.0",
+    "debug": "*",
+    "eventemitter2": "*",
+    "request": "*",
     "socket.io": "~> 1.0",
     "socket.io-client": "~> 1.0"
   },

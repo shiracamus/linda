@@ -1,3 +1,7 @@
+=== 1.0.1 2014-6-10
+
+* add function LindaClient#requeestKeepalive  #14
+
 === 1.0.0 2014-6-3
 
 * update for socket.io v1.0.2  #13
