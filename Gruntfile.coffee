@@ -6,14 +6,28 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-jsonlint'
   grunt.loadNpmTasks 'grunt-coffeelint'
   grunt.loadNpmTasks 'grunt-simple-mocha'
   grunt.loadNpmTasks 'grunt-notify'
 
-  grunt.registerTask 'test',    [ 'coffeelint', 'coffee', 'simplemocha' ]
+  grunt.registerTask 'test', [
+    'jsonlint'
+    'coffeelint'
+    'coffee'
+    'simplemocha'
+  ]
+
   grunt.registerTask 'default', [ 'test', 'watch' ]
 
   grunt.initConfig
+
+    jsonlint:
+      config:
+        src: [
+          '**/*.json'
+          '!node_modules/**'
+        ]
 
     coffeelint:
       options:
@@ -28,12 +42,11 @@ module.exports = (grunt) ->
         no_unnecessary_fat_arrows:
           level: 'ignore'
       dist:
-        files: [
-          { expand: yes, cwd: 'src/', src: [ '**/*.coffee' ] }
-          { expand: yes, cwd: 'tests/', src: [ '**/*.coffee' ] }
-          { expand: yes, cwd: 'samples/chat/coffee/', src: [ '**/*.coffee' ] }
-          { expand: yes, cwd: 'samples/job-queue/coffee/', src: [ '**/*.coffee' ] }
-        ]
+        files:
+          src: [
+            '**/*.coffee'
+            '!node_modules/**'
+          ]
 
     coffee:
       dist:
@@ -72,5 +85,8 @@ module.exports = (grunt) ->
       options:
         interrupt: yes
       dist:
-        files: [ 'src/**/*.coffee', 'tests/**/*.coffee', 'samples/**/*.coffee' ]
+        files: [
+          '**/*.{coffee,json}'
+          '!node_modules/**'
+        ]
         tasks: [ 'test' ]

@@ -1,6 +1,5 @@
 http = require 'http'
 url  = require 'url'
-http = require 'http'
 events = require 'eventemitter2'
 
 module.exports = class TestServer extends events.EventEmitter2

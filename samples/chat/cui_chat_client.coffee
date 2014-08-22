@@ -13,6 +13,4 @@ socket.on 'connect', ->
 
 process.stdin.setEncoding 'utf8'
 process.stdin.on 'data', (data) ->
-    ts.write {type: "chat", message: data.replace(/[\r\n]/g, '')}
-
-
+  ts.write {type: "chat", message: data.replace(/[\r\n]/g, '')}
