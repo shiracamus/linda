@@ -35,7 +35,7 @@ app.set 'linda', linda
 ## load controllers, models, socket.io ##
 components =
   models:      [ ]
-  controllers: [ 'main' ]
+  controllers: [ 'main', 'api' ]
   sockets:     [ ]
 
 for type, items of components

@@ -6,6 +6,7 @@ module.exports = (app) ->
   linda        = app.get 'linda'
   package_json = app.get 'package'
 
+
   app.get '/', (req, res) ->
     debug 'index'
     args =
@@ -31,21 +32,3 @@ module.exports = (app) ->
       package: package_json
 
     return res.render 'tuplespace', args
-
-
-  app.post '/:tuplespace', (req, res) ->
-    res.header 'Access-Control-Allow-Origin', '*'
-    res.header 'Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'
-    res.header 'Access-Control-Allow-Headers', 'Content-Type'
-
-    from = # req.socket._peername.address
-    name = req.params.tuplespace
-    try
-      tuple = JSON.parse req.body.tuple
-    catch
-      res.statusCode = 400
-      return res.end 'Bad Request: invalid JSON'
-
-    linda.tuplespace(name).write tuple, {from: from}
-
-    return res.end JSON.stringify tuple
