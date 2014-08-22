@@ -24,7 +24,7 @@ app.use bodyParser.urlencoded(extended: true)
 
 http = require('http').Server(app)
 io = require('socket.io')(http)
-linda = require(path.resolve()).Server.listen(io: io, server: http)
+linda = require(path.resolve __dirname, '../../').Server.listen(io: io, server: http)
 app.set 'socket.io', io
 app.set 'config', config
 app.set 'package', package_json
