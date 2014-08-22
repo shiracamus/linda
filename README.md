@@ -6,6 +6,7 @@ Linda
 - https://npmjs.org/package/linda
 
 [![Travis CI Status Badge](https://travis-ci.org/node-linda/linda.png?branch=master)](https://travis-ci.org/node-linda/linda)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 
 Install
