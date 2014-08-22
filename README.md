@@ -11,8 +11,8 @@ Linda
 Install
 -------
 
-    % npm install linda
-    % npm install socket.io socket.io-client
+    % npm install linda -g
+    % linda-server --help
 
 
 Requirements
