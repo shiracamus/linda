@@ -1,3 +1,7 @@
+=== 1.1.2 2014-8-23
+
+* bugfix path.resolve in linda-server command
+
 === 1.1.1 2014-8-23
 
 * fix warning of "linda-server" view
