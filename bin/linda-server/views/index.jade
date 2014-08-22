@@ -3,12 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-
   ul
     li
-      a(href='/test?name=foo')
-        {"name":"foo"}
-
+      a(href='/test?name=foo') {"name":"foo"}
     li
-      a(href='/test?name=foo&value=100')
-        {"name":"foo", "value":100}
+      a(href='/test?name=foo&value=100') {"name":"foo", "value":100}
