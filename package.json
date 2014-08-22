@@ -5,6 +5,7 @@
   "description": "Linda implementation on Socket.IO",
   "main": "lib/linda.js",
   "scripts": {
+    "start": "coffee ./bin/linda-server.coffee",
     "test": "grunt test"
   },
   "bin": {
