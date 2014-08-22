@@ -35,4 +35,6 @@ parser.parse process.argv
 app = require path.resolve __dirname, 'linda-server/app.coffee'
 app.get('server').listen config.port
 
-console.log "server start at port #{config.port}"
+console.log """
+server start => http://localhost:#{config.port}
+"""
