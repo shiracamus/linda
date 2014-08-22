@@ -12,7 +12,7 @@ parser = new optparse.OptionParser [
 ]
 
 config =
-  port: 3000
+  port: process.env.PORT or 8931
 
 parser.on 'help', ->
   package_json = require "#{__dirname}/../package.json"
@@ -21,7 +21,7 @@ parser.on 'help', ->
 
   Usage:
     % linda-server
-    % linda-server --port 3000
+    % linda-server --port 8931
     % DEBUG=* linda-server
   """
   console.log parser.toString()
