@@ -17,7 +17,7 @@ config =
 parser.on 'help', ->
   package_json = require "#{__dirname}/../package.json"
   parser.banner = """
-  #{package_json.name} v#{package_json.version}
+  linda-server v#{package_json.version} - #{package_json.homepage}
 
   Usage:
     % linda-server
