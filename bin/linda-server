@@ -1,15 +1,49 @@
 #!/usr/bin/env coffee
 
-http = require 'http'
-url = require 'url'
+optparse = require 'optparse'
+http     = require 'http'
+url      = require 'url'
+
+unless process.env.DEBUG
+  process.env.DEBUG = "linda:*"
+
+parser = new optparse.OptionParser [
+  ['-h', '--help', 'show help']
+  ['-p', '--port [NUMBER]', 'TCP Port']
+  ['--debug', 'DEBUG option']
+]
+
+config =
+  port: 3000
+
+parser.on 'help', ->
+  package_json = require "#{__dirname}/../package.json"
+  parser.banner = """
+  #{package_json.name} v#{package_json.version}
+
+  Usage:
+    % linda-server
+    % linda-server --port 3000
+    % linda-server --debug linda:*
+  """
+  console.log parser.toString()
+  process.exit 0
+
+parser.on 'port', (opt, port) ->
+  config.port = port
+
+parser.on 'debug', (opt, debug) ->
+  process.env.DEBUG = debug
+
+parser.parse process.argv
 
 app = http.createServer (req, res) ->
   res.writeHead 200
-  res.end "linda"
+  res.end "linda-server"
   
 io = require('socket.io').listen app
 
 linda = require('../').Server.listen(io: io, server: app)
 
-app.listen 3000
-console.log "server start - http://localhost:3000"
+app.listen config.port
+console.log "server start at port #{config.port}"
