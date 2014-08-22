@@ -1,3 +1,7 @@
+=== 1.1.1 2014-8-23
+
+* fix warning of "linda-server" view
+
 === 1.1.0 2014-8-23
 
 * add "linda-server" command
