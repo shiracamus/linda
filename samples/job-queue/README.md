@@ -1,14 +1,21 @@
 Linda Sample - Job-Queue
 ========================
 
-start server
+## start linda-server
 
-    % coffee server.coffee 3000
+    % npm install linda -g
+    % linda-server
 
-=> http://localhost:3000
+=>  http://localhost:8931
+
+## open client / worker
+
+    % open client.html
+    % open worker.html
+
+click the button at client.html
 
 
-CUI job worker
---------------
+## CUI job worker
 
-    % coffee cui_worker.coffee
+    % node cui_worker.js

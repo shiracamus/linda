@@ -1,14 +1,21 @@
 Linda Sample - Chat
 ===================
 
-start server
+## start linda-server
 
-    % coffee server.coffee 3000
+    % npm install linda -g
+    % linda-server
 
-=> http://localhost:3000
+=>  http://localhost:8931
 
 
-CUI chat client
----------------
+## open sample html
 
-    % coffee cui_chat_client.coffee
+    % open index.html
+
+let's chat!!
+
+
+## CUI chat client
+
+    % node cui_chat_client.js

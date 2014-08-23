@@ -56,20 +56,6 @@ module.exports = (grunt) ->
           src: [ '**/*.coffee' ]
           dest: 'lib/'
           ext: '.js'
-        }
-        {
-          expand: yes
-          cwd: 'samples/chat/coffee/'
-          src: [ '**/*.coffee' ]
-          dest: 'samples/chat/js/'
-          ext: '.js'
-        }
-        {
-          expand: yes
-          cwd: 'samples/job-queue/coffee/'
-          src: [ '**/*.coffee' ]
-          dest: 'samples/job-queue/js/'
-          ext: '.js'
         }]
 
     simplemocha:
