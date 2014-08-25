@@ -36,7 +36,7 @@ class TupleSpace
     @linda.io.emit '__linda_write', data
 
   take: (tuple, callback) ->
-    return unless typeof callback == 'function'
+    return if typeof callback isnt 'function'
     id = @create_callback_id()
     name = "__linda_take_#{id}"
     listener = (err, tuple) ->
@@ -47,7 +47,7 @@ class TupleSpace
     return id
 
   read: (tuple, callback) ->
-    return unless typeof callback == 'function'
+    return if typeof callback isnt 'function'
     id = @create_callback_id()
     name = "__linda_read_#{id}"
     listener = (err, tuple) ->
@@ -58,7 +58,7 @@ class TupleSpace
     return id
 
   watch: (tuple, callback) ->
-    return unless typeof callback == 'function'
+    return if typeof callback isnt 'function'
     id = @create_watch_callback_id tuple
     name = "__linda_watch_#{id}"
     listener = (err, tuple) ->

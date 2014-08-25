@@ -7,7 +7,7 @@ module.exports = class TestServer extends events.EventEmitter2
   constructor: ->
     @app = http.createServer (req, res) =>
       _url = url.parse(decodeURI(req.url), true)
-      if _url.pathname == '/'
+      if _url.pathname is '/'
         res.writeHead 200
         res.end 'linda test server'
 

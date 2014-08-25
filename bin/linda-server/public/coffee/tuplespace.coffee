@@ -1,6 +1,6 @@
 Array.prototype.permutation = (count, callback) ->
   permut = (arr, result) ->
-    if result.length == count
+    if result.length is count
       callback result
       return
     for i,index in arr
@@ -76,7 +76,7 @@ create_url = (name, tuple) ->
   _url = "#{location.protocol}//#{location.host}/#{name}"
   query = ""
   for k,v of tuple
-    if typeof v == 'number' or typeof v == 'string'
+    if typeof v is 'number' or typeof v is 'string'
       query += "&" if query.length > 0
       query += "#{k}=#{v}"
   if query.length < 1
@@ -90,7 +90,7 @@ $ ->
   $("#tuplespace").editable "click", (e) ->
     _name = e.value.replace(/\//g,'')
     e.target.html _name
-    if _name != name
+    if _name isnt name
       location.href = create_url(_name, tuple)
 
   $("#tuple").editable "click", (e) ->
@@ -100,7 +100,7 @@ $ ->
       alert "invalid JSON - #{e.value}"
       e.target.html e.old_value
       return
-    if JSON.stringify(_tuple) != JSON.stringify(tuple)
+    if JSON.stringify(_tuple) isnt JSON.stringify(tuple)
       location.href = create_url(name, _tuple)
 
   window.query_suggester.onSuggest (tuples) ->

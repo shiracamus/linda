@@ -203,7 +203,7 @@ describe 'instance of "TupleSpace"', ->
       results = []
       ts.watch {a:1, b:2}, (err, tuple) ->
         results.push tuple.data
-        if results.length == 2
+        if results.length is 2
           assert.deepEqual results,
                               [{a:1, b:2, c:3}, {a:1, b:2, name: "shokai"}]
           done()

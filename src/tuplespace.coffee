@@ -12,7 +12,7 @@ module.exports = class TupleSpace
     return if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
     tuple = new Tuple(tuple) unless tuple instanceof Tuple
     tuple.expire =
-      if typeof options.expire == 'number' and options.expire > 0
+      if typeof options.expire is 'number' and options.expire > 0
         options.expire
       else
         Tuple.DEFAULT.expire
@@ -22,10 +22,10 @@ module.exports = class TupleSpace
     for i in [0...@callbacks.length]
       c = @callbacks[i]
       if c.tuple.match tuple
-        called.push i if c.type == 'take' or c.type == 'read'
+        called.push i if c.type is 'take' or c.type is 'read'
         do (c) ->
           setImmediate -> c.callback(null, tuple)
-        if c.type == 'take'
+        if c.type is 'take'
           taked = true
           break
     for i in called by -1
@@ -36,7 +36,7 @@ module.exports = class TupleSpace
     return Date.now() - Math.random()
 
   read: (tuple, callback) ->
-    return unless typeof callback == 'function'
+    return unless typeof callback is 'function'
     if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
       setImmediate -> callback('argument_error')
       return null
@@ -51,7 +51,7 @@ module.exports = class TupleSpace
     return id
 
   take: (tuple, callback) ->
-    return unless typeof callback == 'function'
+    return unless typeof callback is 'function'
     if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
       setImmediate -> callback('argument_error')
       return null
@@ -67,7 +67,7 @@ module.exports = class TupleSpace
     return id
 
   watch: (tuple, callback) ->
-    return unless typeof callback == 'function'
+    return unless typeof callback is 'function'
     if !Tuple.isHash(tuple) and !(tuple instance Tuple)
       setImmediate -> callback('argument_error')
       return
@@ -84,7 +84,7 @@ module.exports = class TupleSpace
     return unless id?
     for i in [0...@callbacks.length]
       c = @callbacks[i]
-      if id == c.id
+      if id is c.id
         setImmediate -> c.callback('cancel', null)
         @callbacks.splice i, 1
         return

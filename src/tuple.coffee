@@ -1,7 +1,8 @@
 module.exports = class Tuple
 
   @isHash: (data) ->
-    return false if !data or data instanceof Array or typeof data != "object"
+    if !data or data instanceof Array or typeof data isnt 'object'
+      return false
     return true
 
   @DEFAULT = {expire: 300}
@@ -15,9 +16,9 @@ module.exports = class Tuple
     return false unless Tuple.isHash(tuple)
     data = if tuple instanceof Tuple then tuple.data else tuple
     for k,v of @data
-      if typeof v == 'object'
-        return false if typeof data[k] != 'object'
-        return false if JSON.stringify(v) != JSON.stringify(data[k])
+      if typeof v is 'object'
+        return false if typeof data[k] isnt 'object'
+        return false if JSON.stringify(v) isnt JSON.stringify(data[k])
       else
-        return false if v != data[k]
+        return false if v isnt data[k]
     return true
