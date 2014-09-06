@@ -31,6 +31,12 @@ app.set 'package', package_json
 app.set 'server', http
 app.set 'linda', linda
 
+if /^https?:\/\/.+/.test process.env.HEROKU_URL
+  setInterval ->
+    linda.tuplespace('__linda').write
+      type: 'keepalive'
+      to: process.env.HEROKU_URL
+  , 60 * 1000 * 10  # 10 min
 
 ## load controllers, models, socket.io ##
 components =
