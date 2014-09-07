@@ -1,8 +1,8 @@
 'use strict'
 
-path     = require 'path'
-debug    = require('debug')('linda-server:app')
-express  = require 'express'
+path    = require 'path'
+debug   = require('debug')('linda-server:app')
+express = require 'express'
 
 ## config ##
 config       = require path.resolve __dirname, 'config.json'
@@ -31,18 +31,11 @@ app.set 'package', package_json
 app.set 'server', http
 app.set 'linda', linda
 
-if /^https?:\/\/.+/.test process.env.HEROKU_URL
-  setInterval ->
-    linda.tuplespace('__linda').write
-      type: 'keepalive'
-      to: process.env.HEROKU_URL
-  , 60 * 1000 * 10  # 10 min
-
 ## load controllers, models, socket.io ##
 components =
   models:      [ ]
   controllers: [ 'main', 'api' ]
-  sockets:     [ ]
+  events:      [ 'keepalive' ]
 
 for type, items of components
   for item in items

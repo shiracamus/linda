@@ -8,7 +8,6 @@ module.exports = (app) ->
 
 
   app.get '/', (req, res) ->
-    debug 'index'
     args =
       title: config.title
       package: package_json
