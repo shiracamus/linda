@@ -38,8 +38,8 @@
     "jade": "^1.5.0",
     "optparse": "*",
     "request": "*",
-    "socket.io": "~> 1.0",
-    "socket.io-client": "~> 1.0"
+    "socket.io": "~> 1.1.0",
+    "socket.io-client": "~> 1.1.0"
   },
   "directories": {
     "test": "tests"
