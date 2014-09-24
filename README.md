@@ -4,7 +4,7 @@ Node Linda
 
 - https://github.com/node-linda/linda
 - https://npmjs.org/package/linda
-- [[http://www.slideshare.net/shokai/prosym-node-linda Web版Lindaによる実世界コンピューティング]]
+- [Web版Lindaによる実世界コンピューティング](http://www.slideshare.net/shokai/prosym-node-linda)
 
 [![Travis CI Status Badge](https://travis-ci.org/node-linda/linda.png?branch=master)](https://travis-ci.org/node-linda/linda)
 
