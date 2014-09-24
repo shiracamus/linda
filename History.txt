@@ -1,3 +1,8 @@
+=== 1.2.0 2014-9-24
+
+* update socket.io v1.1
+* update coffee-script v1.8
+
 === 1.1.6 2014-8-24
 
 * send keepalive ping self
