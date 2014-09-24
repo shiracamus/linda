@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "body-parser": "*",
-    "coffee-script": "~> 1.7",
+    "coffee-script": "^1.8",
     "debug": "*",
     "eventemitter2": "*",
     "express": "^4.8.5",
