@@ -36,9 +36,6 @@ describe 'instance of LindaClient', ->
       assert.ok true
       done()
 
-  it 'should have method "requestKeepalive"', ->
-    assert.equal typeof new LindaClient()['requestKeepalive'], 'function'
-
   it 'should have method "tuplespace"', ->
     assert.equal typeof new LindaClient()['tuplespace'], 'function'
 
@@ -344,12 +341,3 @@ describe 'instance of LindaClient', ->
 #
 #      ts.write {a:1, b:2}
 #
-  describe 'method "requestKeepalive"', ->
-
-    it 'should receive keepalive HTTP-Request', (done) ->
-
-      server.once 'request', (req)->
-        assert.ok /keepalive/.test req.url
-        done()
-
-      create_client().requestKeepalive("http://localhost:#{port}")

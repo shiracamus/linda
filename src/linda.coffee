@@ -32,12 +32,6 @@ class Linda extends events.EventEmitter2
       debug "TupleSpace\tcheck expire done"
     , 60*3*1000 # 3min
 
-    @tuplespace('__linda').watch {type: 'keepalive'}, (err, tuple) ->
-      if err or !tuple.data.to?
-        return
-      if /^https?:\/\/.+/.test tuple.data.to
-        request "#{tuple.data.to}?keepalive=#{Date.now()}"
-
   tuplespace: (name) ->
     return @spaces[name] or
            @spaces[name] = new TupleSpace(name)
