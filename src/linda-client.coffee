@@ -18,6 +18,9 @@ class TupleSpace
   create_callback_id: ->
     return Date.now() - Math.random()
 
+  option: (opt) ->
+    return new ReadTakeOption(@, opt)
+
   create_watch_callback_id: (tuple) ->
     key = JSON.stringify tuple
     return @watch_callback_ids[key] or
@@ -33,26 +36,10 @@ class TupleSpace
     @linda.io.emit '__linda_write', data
 
   take: (tuple, callback) ->
-    return if typeof callback isnt 'function'
-    id = @create_callback_id()
-    name = "__linda_take_#{id}"
-    listener = (err, tuple) ->
-      callback err, tuple
-    @io_callbacks.push {name: name, listener: listener}
-    @linda.io.once name, listener
-    @linda.io.emit '__linda_take', {tuplespace: @name, tuple: tuple, id: id}
-    return id
+    return @option({}).take tuple, callback
 
   read: (tuple, callback) ->
-    return if typeof callback isnt 'function'
-    id = @create_callback_id()
-    name = "__linda_read_#{id}"
-    listener = (err, tuple) ->
-      callback err, tuple
-    @io_callbacks.push {name: name, listener: listener}
-    @linda.io.once name, listener
-    @linda.io.emit '__linda_read', {tuplespace: @name, tuple: tuple, id: id}
-    return id
+    return @option({}).read tuple, callback
 
   watch: (tuple, callback) ->
     return if typeof callback isnt 'function'
@@ -76,6 +63,31 @@ class TupleSpace
           @io_callbacks.splice i, 1
     , 100
 
+class ReadTakeOption
+
+  constructor: (@ts, @opts) ->
+
+  read: (tuple, callback) ->
+    return if typeof callback isnt 'function'
+    id = @ts.create_callback_id()
+    name = "__linda_read_#{id}"
+    listener = (err, tuple) ->
+      callback err, tuple
+    @ts.io_callbacks.push {name: name, listener: listener}
+    @ts.linda.io.once name, listener
+    @ts.linda.io.emit '__linda_read', {tuplespace: @ts.name, tuple: tuple, id: id, options: @opts}
+    return id
+
+  take: (tuple, callback) ->
+    return if typeof callback isnt 'function'
+    id = @ts.create_callback_id()
+    name = "__linda_take_#{id}"
+    listener = (err, tuple) ->
+      callback err, tuple
+    @ts.io_callbacks.push {name: name, listener: listener}
+    @ts.linda.io.once name, listener
+    @ts.linda.io.emit '__linda_take', {tuplespace: @ts.name, tuple: tuple, id: id, options: @opts}
+    return id
 
 if window?
   window.Linda = LindaClient
