@@ -8,6 +8,9 @@ module.exports = class TupleSpace
     @__defineGetter__ 'size', ->
       return @tuples.length
 
+  option: (opts) ->
+    return new ReadTakeOption @, opts
+
   write: (tuple, options={expire: Tuple.DEFAULT.expire}) ->
     return if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
     tuple = new Tuple(tuple) unless tuple instanceof Tuple
@@ -36,35 +39,10 @@ module.exports = class TupleSpace
     return Date.now() - Math.random()
 
   read: (tuple, callback) ->
-    return unless typeof callback is 'function'
-    if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
-      setImmediate -> callback('argument_error')
-      return null
-    tuple = new Tuple(tuple) unless tuple instanceof Tuple
-    for i in [@size-1..0]
-      t = @tuples[i]
-      if tuple.match t
-        setImmediate -> callback(null, t)
-        return
-    id = @create_callback_id()
-    @callbacks.push {type: 'read', callback: callback, tuple: tuple, id: id}
-    return id
+    return @option({}).read tuple, callback
 
   take: (tuple, callback) ->
-    return unless typeof callback is 'function'
-    if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
-      setImmediate -> callback('argument_error')
-      return null
-    tuple = new Tuple(tuple) unless tuple instanceof Tuple
-    for i in [@size-1..0]
-      t = @tuples[i]
-      if tuple.match t
-        setImmediate -> callback(null, t)
-        @tuples.splice i, 1
-        return
-    id = @create_callback_id()
-    @callbacks.push {type: 'take', callback: callback, tuple: tuple, id: id}
-    return id
+    return @option({}).take tuple, callback
 
   watch: (tuple, callback) ->
     return unless typeof callback is 'function'
@@ -97,3 +75,40 @@ module.exports = class TupleSpace
     for i in expires by -1
       @tuples.splice i, 1
     return expires.length
+
+
+class ReadTakeOption
+  constructor: (@ts, @opt={}) ->
+
+  read: (tuple, callback) ->
+    return unless typeof callback is 'function'
+    if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
+      setImmediate -> callback('argument_error')
+      return null
+    tuple = new Tuple(tuple) unless tuple instanceof Tuple
+    seq = if @opt?.sort is 'queue' then [0..@ts.size-1] else [@ts.size-1..0]
+    for i in seq
+      t = @ts.tuples[i]
+      if tuple.match t
+        setImmediate -> callback(null, t)
+        return
+    id = @ts.create_callback_id()
+    @ts.callbacks.push {type: 'read', callback: callback, tuple: tuple, id: id}
+    return id
+
+  take: (tuple, callback) ->
+    return unless typeof callback is 'function'
+    if !Tuple.isHash(tuple) and !(tuple instanceof Tuple)
+      setImmediate -> callback('argument_error')
+      return null
+    tuple = new Tuple(tuple) unless tuple instanceof Tuple
+    seq = if @opt?.sort is 'queue' then [0..@ts.size-1] else [@ts.size-1..0]
+    for i in seq
+      t = @ts.tuples[i]
+      if tuple.match t
+        setImmediate -> callback(null, t)
+        @ts.tuples.splice i, 1
+        return
+    id = @ts.create_callback_id()
+    @ts.callbacks.push {type: 'take', callback: callback, tuple: tuple, id: id}
+    return id

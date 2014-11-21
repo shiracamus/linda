@@ -71,7 +71,7 @@ class Linda extends events.EventEmitter2
         @emit 'write', data
 
       socket.on '__linda_take', (data) =>
-        cid = @tuplespace(data.tuplespace).take data.tuple, (err, tuple) ->
+        cid = @tuplespace(data.tuplespace).option(data.options).take data.tuple, (err, tuple) ->
           cid = null
           socket.emit "__linda_take_#{data.id}", err, tuple
         cids[data.id] = cid
@@ -81,7 +81,7 @@ class Linda extends events.EventEmitter2
           @tuplespace(data.tuplespace).cancel cid if cid
 
       socket.on '__linda_read', (data) =>
-        cid = @tuplespace(data.tuplespace).read data.tuple, (err, tuple) ->
+        cid = @tuplespace(data.tuplespace).option(data.options).read data.tuple, (err, tuple) ->
           cid = null
           socket.emit "__linda_read_#{data.id}", err, tuple
         cids[data.id] = cid
