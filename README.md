@@ -30,7 +30,7 @@ Install
 Requirements
 ------------
 - Node.js v0.10
-- [Socket.IO](http://socket.io/) v1.0.x
+- [Socket.IO](http://socket.io/) v1.2.x
 
 
 What is Linda?
