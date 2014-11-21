@@ -78,7 +78,13 @@ module.exports = class TupleSpace
 
 
 class ReadTakeOption
-  constructor: (@ts, @opt={}) ->
+  DEFAULT =
+    sort: 'stack'
+
+  constructor: (@ts, @opts={}) ->
+    for k,v of DEFAULT
+      unless @opts.hasOwnProperty k
+        @opts[k] = v
 
   read: (tuple, callback) ->
     return unless typeof callback is 'function'
@@ -86,7 +92,9 @@ class ReadTakeOption
       setImmediate -> callback('argument_error')
       return null
     tuple = new Tuple(tuple) unless tuple instanceof Tuple
-    seq = if @opt?.sort is 'queue' then [0..@ts.size-1] else [@ts.size-1..0]
+    seq = switch @opts.sort
+      when 'queue' then [0..@ts.size-1]
+      when 'stack' then [@ts.size-1..0]
     for i in seq
       t = @ts.tuples[i]
       if tuple.match t
@@ -102,12 +110,14 @@ class ReadTakeOption
       setImmediate -> callback('argument_error')
       return null
     tuple = new Tuple(tuple) unless tuple instanceof Tuple
-    seq = if @opt?.sort is 'queue' then [0..@ts.size-1] else [@ts.size-1..0]
+    seq = switch @opts.sort
+      when 'queue' then [0..@ts.size-1]
+      when 'stack' then [@ts.size-1..0]
     for i in seq
       t = @ts.tuples[i]
       if tuple.match t
         setImmediate -> callback(null, t)
-        @ts.tuples.splice i, 1
+        @ts.tuples.splice i, 1  # delete tuple
         return
     id = @ts.create_callback_id()
     @ts.callbacks.push {type: 'take', callback: callback, tuple: tuple, id: id}

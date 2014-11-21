@@ -64,8 +64,13 @@ class TupleSpace
     , 100
 
 class ReadTakeOption
+  DEFAULT =
+    sort: 'stack'
 
-  constructor: (@ts, @opts) ->
+  constructor: (@ts, @opts={}) ->
+    for k,v of DEFAULT
+      unless @opts.hasOwnProperty k
+        @opts[k] = v
 
   read: (tuple, callback) ->
     return if typeof callback isnt 'function'
