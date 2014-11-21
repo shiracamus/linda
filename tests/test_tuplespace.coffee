@@ -104,15 +104,16 @@ describe 'instance of "TupleSpace"', ->
       assert.equal ts.callbacks.length, 0
       assert.equal ts.size, 3
 
-    it 'should return matched Tuple if using queue/stack mode', (done) ->
+    it 'should return matched Tuple if using queue mode', (done) ->
       ts = new TupleSpace()
-      for i in [0..2]
-        ts.write {a: 1, b:i}
-      ts.option({sort: 'queue'}).read {a: 1}, (err, tuple) ->
-        assert.deepEqual tuple.data, {a: 1, b: 0}
+      ts.write {foo: 'bar', n: 1}
+      ts.write {foo: 'bar', n: 2}
+      ts.write {foo: 'bar', n: 3}
+      ts.option({sort: 'queue'}).read {foo: 'bar'}, (err, tuple) ->
+        assert.deepEqual tuple.data, {foo: 'bar', n: 1}
         assert.equal ts.size, 3
-        ts.read {a: 1}, (err, tuple) ->
-          assert.deepEqual tuple.data, {a: 1, b: 2}
+        ts.read {foo: 'bar'}, (err, tuple) ->
+          assert.deepEqual tuple.data, {foo: 'bar', n: 3}
           assert.equal ts.size, 3
           done()
 
@@ -153,15 +154,15 @@ describe 'instance of "TupleSpace"', ->
         assert.equal ts.size, 0
         done()
 
-    it 'should return matched Tuple and delete if using queue/stack mode', (done) ->
+    it 'should return matched Tuple and delete if using queue mode', (done) ->
       ts = new TupleSpace()
-      for i in [0..2]
-        ts.write {a: 1, b:i}
-      ts.option({sort: 'queue'}).take {a: 1}, (err, tuple) ->
-        assert.deepEqual tuple.data, {a: 1, b: 0}
-        assert.equal ts.size, 2
-        ts.take {a: 1}, (err, tuple) ->
-          assert.deepEqual tuple.data, {a: 1, b: 2}
+      ts.write {n: 1, foo: 'bar'}
+      ts.write {n: 2, foo: 'bar'}
+      ts.write {n: 3, foo: 'bar'}
+      ts.option({sort: 'queue'}).take {foo: 'bar'}, (err, tuple) ->
+        assert.deepEqual tuple.data, {n: 1, foo: 'bar'}
+        ts.take {foo: 'bar'}, (err, tuple) ->
+          assert.deepEqual tuple.data, {n: 3, foo: 'bar'}
           assert.equal ts.size, 1
           done()
 
