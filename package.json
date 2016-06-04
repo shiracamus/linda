@@ -31,15 +31,15 @@
   },
   "dependencies": {
     "body-parser": "*",
-    "coffee-script": "^1.8",
+    "coffee-script": "*",
     "debug": "*",
     "eventemitter2": "*",
     "express": "^4.8.5",
     "jade": "^1.5.0",
     "optparse": "*",
     "request": "*",
-    "socket.io": "^1.2",
-    "socket.io-client": "^1.2"
+    "socket.io": "*",
+    "socket.io-client": "*"
   },
   "directories": {
     "test": "tests"
