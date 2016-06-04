@@ -1,6 +1,6 @@
 {
   "name": "linda",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "private": false,
   "description": "Linda implementation on Socket.IO",
   "main": "lib/linda.js",

@@ -1,3 +1,7 @@
+=== 1.2.2 2016-6-5
+
+* fixed socket.io version
+
 === 1.2.1 2014-11-21
 
 * update socket.io v1.2
