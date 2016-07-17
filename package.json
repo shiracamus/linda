@@ -1,15 +1,11 @@
 {
   "name": "linda",
-  "version": "1.2.2",
+  "version": "2.0.0.beta",
   "private": false,
   "description": "Linda implementation on Socket.IO",
   "main": "lib/linda.js",
   "scripts": {
-    "start": "coffee ./bin/linda-server.coffee",
-    "test": "grunt test"
-  },
-  "bin": {
-    "linda-server": "./bin/linda-server.coffee"
+    "build": ""
   },
   "keywords": [
     "linda",
@@ -18,29 +14,20 @@
   "author": "Sho Hashimoto <hashimoto@shokai.org>",
   "license": "MIT",
   "devDependencies": {
-    "coffee-errors": "*",
-    "mocha": "*",
-    "grunt": "*",
-    "grunt-simple-mocha": "*",
-    "grunt-notify": "*",
-    "grunt-contrib-coffee": "*",
-    "grunt-coffeelint": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-jsonlint": "*",
-    "async": "*"
+    "babel-cli": "^6.10.1",
+    "babel-eslint": "^6.1.2",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-regenerator-runtime": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "chai": "^3.5.0",
+    "chokidar-cli": "^1.2.0",
+    "debug": "^2.2.0",
+    "eslint": "^3.1.0",
+    "mocha": "^2.5.3",
+    "parallelshell": "^2.0.0"
   },
-  "dependencies": {
-    "body-parser": "*",
-    "coffee-script": "*",
-    "debug": "*",
-    "eventemitter2": "*",
-    "express": "^4.8.5",
-    "jade": "^1.5.0",
-    "optparse": "*",
-    "request": "*",
-    "socket.io": "*",
-    "socket.io-client": "*"
-  },
+  "dependencies": {},
   "directories": {
     "test": "tests"
   },
