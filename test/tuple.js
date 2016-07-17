@@ -23,5 +23,10 @@ describe('Tuple', function () {
     it('partial match', function () {
       assert.ok(tuple.match(new Tuple({name, web, age: 100})))
     })
+
+    it('deep match', function () {
+      let tuple = new Tuple({arr: [1, 2]})
+      assert.ok(tuple.match(new Tuple({arr: [1, 2], name, web})))
+    })
   })
 })
