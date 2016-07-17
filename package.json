@@ -11,7 +11,8 @@
   "scripts": {
     "build": "babel src/ --out-dir lib/ --source-maps inline",
     "eslint": "eslint '{src,tests}/*.js'",
-    "test": "npm run eslint"
+    "mocha": "mocha 'test/*.js' --compilers js:babel-register -r babel-polyfill",
+    "test": "npm run mocha && npm run eslint"
   },
   "keywords": [
     "linda",
@@ -22,9 +23,9 @@
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-eslint": "^6.1.2",
+    "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-0": "^6.5.0",
-    "babel-regenerator-runtime": "^6.5.0",
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "chokidar-cli": "^1.2.0",
