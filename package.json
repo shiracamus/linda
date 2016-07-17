@@ -1,11 +1,13 @@
 {
   "name": "linda",
-  "version": "2.0.0.beta",
+  "version": "2.0.0",
   "private": false,
   "description": "Linda implementation on Socket.IO",
   "main": "lib/linda.js",
   "scripts": {
-    "build": ""
+    "build": "",
+    "eslint": "eslint '{src,tests}/*.js'",
+    "test": "npm run eslint"
   },
   "keywords": [
     "linda",
