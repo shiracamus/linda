@@ -10,7 +10,7 @@
   "main": "lib/linda.js",
   "scripts": {
     "build": "babel src/ --out-dir lib/ --source-maps inline",
-    "eslint": "eslint '{src,tests}/*.js'",
+    "eslint": "eslint '{src,test}/*.js'",
     "mocha": "mocha 'test/*.js' --compilers js:babel-register -r babel-polyfill",
     "test": "npm run mocha && npm run eslint"
   },
@@ -35,7 +35,9 @@
     "mocha": "^2.5.3",
     "parallelshell": "^2.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "deep-equal": "^1.0.1"
+  },
   "directories": {
     "test": "tests"
   },
