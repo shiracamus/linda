@@ -15,3 +15,8 @@ export default class Tuple {
   }
 
 }
+
+export function toTuple (obj) {
+  if (obj instanceof Tuple) return obj
+  return new Tuple(obj)
+}

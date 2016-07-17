@@ -1,4 +1,4 @@
-import Tuple from './tuple'
+import {toTuple} from './tuple'
 
 export default class TupleSpace {
 
@@ -12,12 +12,11 @@ export default class TupleSpace {
   }
 
   write (tuple) {
-    if (!(tuple instanceof Tuple)) tuple = new Tuple(tuple)
-    this.tuples.push(tuple)
+    this.tuples.push(toTuple(tuple))
   }
 
   async read (tuple) {
-    if (!(tuple instanceof Tuple)) tuple = new Tuple(tuple)
+    tuple = toTuple(tuple)
     for (let i = this.tuples.length - 1; i >= 0; i--) {
       let _tuple = this.tuples[i]
       if (tuple.match(_tuple)) {
@@ -27,7 +26,7 @@ export default class TupleSpace {
   }
 
   async take (tuple) {
-    if (!(tuple instanceof Tuple)) tuple = new Tuple(tuple)
+    tuple = toTuple(tuple)
     for (let i = this.tuples.length - 1; i >= 0; i--) {
       let _tuple = this.tuples[i]
       if (tuple.match(_tuple)) {
