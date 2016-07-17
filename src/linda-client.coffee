@@ -71,6 +71,8 @@ class ReadTakeOption
   DEFAULT =
     sort: 'stack'
 
+
+
   constructor: (@ts, @opts={}) ->
     for k,v of DEFAULT
       unless @opts.hasOwnProperty k
