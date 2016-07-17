@@ -9,7 +9,7 @@
   },
   "main": "lib/linda.js",
   "scripts": {
-    "build": "",
+    "build": "babel src/ --out-dir lib/ --source-maps inline",
     "eslint": "eslint '{src,tests}/*.js'",
     "test": "npm run eslint"
   },
