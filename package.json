@@ -3,6 +3,10 @@
   "version": "2.0.0",
   "private": false,
   "description": "Linda implementation on Socket.IO",
+  "engines": {
+    "node": "6.x",
+    "npm": "3.x"
+  },
   "main": "lib/linda.js",
   "scripts": {
     "build": "",
