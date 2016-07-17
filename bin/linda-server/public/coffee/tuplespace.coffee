@@ -49,6 +49,7 @@ class QuerySuggester
       @on_suggest = callback
 
 
+
 socket = io.connect("#{location.protocol}//#{location.host}")
 window.linda = new Linda().connect(socket)
 window.ts = linda.tuplespace(name)

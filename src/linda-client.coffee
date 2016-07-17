@@ -7,6 +7,8 @@ class LindaClient
   tuplespace: (name) ->
     return new TupleSpace @, name
 
+
+
 class TupleSpace
 
   constructor: (@linda, @name) ->
@@ -63,6 +65,8 @@ class TupleSpace
           @io_callbacks.splice i, 1
     , 100
 
+
+
 class ReadTakeOption
   DEFAULT =
     sort: 'stack'
@@ -93,6 +97,8 @@ class ReadTakeOption
     @ts.linda.io.once name, listener
     @ts.linda.io.emit '__linda_take', {tuplespace: @ts.name, tuple: tuple, id: id, options: @opts}
     return id
+
+
 
 if window?
   window.Linda = LindaClient
