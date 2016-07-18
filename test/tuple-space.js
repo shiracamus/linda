@@ -40,31 +40,37 @@ describe('TupleSpace', function () {
   })
 
   describe('asynchronous case', function () {
-    it('read', async function () {
-      let ts = new TupleSpace()
-      setTimeout(() => ts.write({name, web}), 1000)
-      let tuple = await ts.read({name})
-      assert.deepEqual(tuple.data, {name, web})
-      assert.equal(ts.size, 1)
+    describe('read then write', function () {
+      it('read', async function () {
+        let ts = new TupleSpace()
+        setTimeout(() => ts.write({name, web}), 1000)
+        let tuple = await ts.read({name})
+        assert.deepEqual(tuple.data, {name, web})
+        assert.equal(ts.size, 1)
+      })
     })
 
-    it('take', async function () {
-      let ts = new TupleSpace()
-      setTimeout(() => ts.write({name, web}, 1000))
-      let tuple = await ts.take({name})
-      assert.deepEqual(tuple.data, {name, web})
-      assert.equal(ts.size, 0)
+    describe('take then write', function () {
+      it('take', async function () {
+        let ts = new TupleSpace()
+        setTimeout(() => ts.write({name, web}, 1000))
+        let tuple = await ts.take({name})
+        assert.deepEqual(tuple.data, {name, web})
+        assert.equal(ts.size, 0)
+      })
     })
 
-    it('read then take', async function () {
-      let ts = new TupleSpace()
-      setTimeout(() => ts.write({name, web}, 1000))
-      let [readTuple, takeTuple] = await Promise.all([
-        ts.read({name}), ts.take({name})
-      ])
-      assert.deepEqual(readTuple.data, {name, web})
-      assert.deepEqual(takeTuple.data, {name, web})
-      assert.equal(ts.size, 0)
+    describe('read and take then write', function () {
+      it('read and take', async function () {
+        let ts = new TupleSpace()
+        setTimeout(() => ts.write({name, web}, 1000))
+        let [readTuple, takeTuple] = await Promise.all([
+          ts.read({name}), ts.take({name})
+        ])
+        assert.deepEqual(readTuple.data, {name, web})
+        assert.deepEqual(takeTuple.data, {name, web})
+        assert.equal(ts.size, 0)
+      })
     })
   })
 })
